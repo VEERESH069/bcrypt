@@ -5,7 +5,7 @@ const users = require('./model.js')
 
 router.post('/signup',async(req,res)=>{
   const {name,password,email} = req.body;
-  try{
+   const userEmail = await userModel.findOne({email});
     if (!name || !password || !email){
       return res.status(404).json({message:"Required all fields"})
     }
@@ -17,7 +17,6 @@ router.post('/signup',async(req,res)=>{
   })
   await user.save();
   res.status(200).json({message:"Register done Successfully"})
-  }
   catch(err){
     return res.status(404).json({messgae:"Can't signup this email ID",err})
   }
